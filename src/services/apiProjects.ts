@@ -63,7 +63,7 @@ export const getProjects = async ({
         const operator = filter.method || '==';
         baseQuery = query(
           baseQuery,
-          where(filter.field, operator as any, filter.value)
+          where(filter.field, operator as any, filter.value),
         );
       });
     }
@@ -88,7 +88,7 @@ export const getProjects = async ({
         baseQuery,
         orderBy(sortBy.field, sortDirection),
         endBefore(cursor),
-        limitToLast(PAGE_SIZE)
+        limitToLast(PAGE_SIZE),
       );
     } else {
       dataQuery = query(baseQuery, orderBy(sortBy.field, sortDirection));
@@ -105,7 +105,7 @@ export const getProjects = async ({
         ({
           ...doc.data(),
           id: doc.id,
-        } as ProjectType)
+        }) as ProjectType,
     );
 
     //
@@ -158,7 +158,7 @@ export const getProjectById = async (id: string): Promise<ProjectType> => {
 // Create and update project
 export const createEditProjectApi = async (
   project: ProjectFormInput,
-  id?: string
+  id?: string,
 ) => {
   try {
     //
@@ -183,7 +183,7 @@ export const createEditProjectApi = async (
         .filter(Boolean)
         .map((ass: string) => ({
           name: ass,
-          // avatar: `${ass.toLowerCase().replace(/\s+/g, '-')}.webp`,
+          avatar: `${ass.toLowerCase().replace(/\s+/g, '-')}`,
         })),
 
       startDate: project.startDate

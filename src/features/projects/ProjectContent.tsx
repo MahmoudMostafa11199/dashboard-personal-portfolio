@@ -71,11 +71,18 @@ function ProjectContent({ project }: ProjectContectPropa) {
       )}
 
       {/* Project Notes  */}
-      {activeTab == 'notes' && (
-        <p className="text-gray-700 dark:text-gray-300">
-          {project.notes || 'No notes yet.'}
-        </p>
-      )}
+      {activeTab == 'notes' &&
+        (project.notes ? (
+          <ul className="list-disc list-inside ps-2 space-y-3 text-gray-700 dark:text-gray-300">
+            {project.notes.split('\n').map((nt, indx) => (
+              <li key={indx} className="pe-4 dark:border-gray-800">
+                {nt.trim() || '-'}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-700 dark:text-gray-300">No notes yet.</p>
+        ))}
     </div>
   );
 }

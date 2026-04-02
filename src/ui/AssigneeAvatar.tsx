@@ -9,8 +9,9 @@ type Props = {
 function AssigneeAvatar({ assigneeName, assigneeImage }: Props) {
   const [isImageValid, setIsImageValid] = useState<boolean>(true);
 
-  assigneeImage =
-    assigneeName == 'Mahmoud Mostafa' ? 'mahmoud.png' : assigneeImage;
+  assigneeImage = !assigneeImage
+    ? assigneeName.toLowerCase().replace(/\s+/g, '-')
+    : assigneeImage;
 
   const showFallback = !isImageValid || !assigneeImage;
 
@@ -18,7 +19,8 @@ function AssigneeAvatar({ assigneeName, assigneeImage }: Props) {
     <div className="flex items-center gap-1.5">
       {!showFallback ? (
         <img
-          src={`${IMAGE_URL}/about/${assigneeImage}?raw=true`}
+          // src={`${IMAGE_URL}/about/${assigneeImage}?raw=true`}
+          src={`${IMAGE_URL}/assignees/${assigneeImage}.webp?raw=true`}
           alt={assigneeName}
           className="w-8 h-8 rounded-full border border-gray-400 object-contain dark:border-gray-800"
           loading="lazy"
