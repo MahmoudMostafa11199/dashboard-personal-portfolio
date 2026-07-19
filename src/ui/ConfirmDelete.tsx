@@ -11,6 +11,12 @@ function ConfirmDelete({
   disabled,
   onClose,
 }: ConfirmDeleteProps) {
+  //
+  async function handleConfirm() {
+    await onConfirm?.();
+    onClose?.();
+  }
+
   return (
     <div className="w-lg">
       <h2 className="text-xl font-semibold mb-3">Delete {resourceName}</h2>
@@ -30,7 +36,7 @@ function ConfirmDelete({
         </button>
         <button
           className="bg-rose-700 px-4 py-2.5 rounded transition-colors hover:bg-rose-800"
-          onClick={onConfirm}
+          onClick={handleConfirm}
           disabled={disabled}
         >
           Delete

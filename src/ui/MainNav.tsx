@@ -4,7 +4,7 @@ import {
   HiStar,
   HiBriefcase,
 } from 'react-icons/hi2';
-import { FaCertificate } from 'react-icons/fa';
+import { FaCertificate, FaCog } from 'react-icons/fa';
 
 import NavItem from './NavItem';
 
@@ -31,6 +31,10 @@ function MainNav() {
         <NavItem href="/certifications">
           <FaCertificate className="icon" />
           <span>Certifications</span>
+        </NavItem>
+        <NavItem href="/settings">
+          <FaCog className="icon" />
+          <span>Settings</span>
         </NavItem>
       </ul>
     </nav>

@@ -16,11 +16,13 @@ function Filter({ filterField, options }: FilterProps) {
   const handleClick = (value: string) => {
     searchParams.set(filterField, value);
 
+    if (value === 'all') searchParams.delete(filterField);
+
     setSearchParams(searchParams);
   };
 
   return (
-    <div className="bg-stone-50 flex gap-1 p-2 rounded-4xl shadow-sm dark:bg-gray-900">
+    <div className="bg-stone-50 flex flex-wrap justify-center md:justify-normal gap-1 gap-y-2 p-2 rounded-4xl shadow-sm dark:bg-gray-900">
       {options.map((option) => (
         <FilterButton
           key={option.value}

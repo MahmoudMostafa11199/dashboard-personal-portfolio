@@ -10,7 +10,7 @@ function UserAvatar() {
         src={`${user?.photoURL}`}
         alt={`Avatar to ${user?.displayName}`}
       />
-      <span>{user?.displayName}</span>
+      <span className='hidden md:block'>{user?.displayName}</span>
     </div>
   );
 }

@@ -15,7 +15,9 @@ function Project() {
   //////////////////////////////////////
   // Handle loading and error
   if (isLoading) return <Spinner />;
+
   if (isError && error) return <p className="bg-red-500">{error.message}</p>;
+
   if (!project) return <p className="p-4">Project not found</p>;
 
   return (

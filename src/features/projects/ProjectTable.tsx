@@ -22,7 +22,8 @@ function ProjectTable() {
   return (
     <>
       <div className="border border-gray-300 dark:border-0">
-        <div className="w-full bg-stone-200 font-semibold grid grid-cols-[1fr_1fr_1fr_1fr] gap-4 p-3 items-center dark:bg-gray-950">
+        {/* Table header — hidden on mobile since cards don't need column headers */}
+        <div className="hidden sm:grid w-full bg-stone-200 font-semibold grid-cols-[60px_1fr_120px_220px] gap-4 p-3 items-center dark:bg-gray-950">
           <h4>#</h4>
           <h4>Title</h4>
           <h4>Status</h4>

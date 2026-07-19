@@ -7,7 +7,7 @@ type ProjectTabsProps = {
 
 function ProjectTabs({ activeTab, onTabChange }: ProjectTabsProps) {
   return (
-    <nav className="tabs border-b border-stone-400 mb-3 dark:border-gray-700">
+    <nav className="border-b border-stone-400 mb-3 dark:border-gray-700">
       {TABS.map((tab) => (
         <button
           key={tab}

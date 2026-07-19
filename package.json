@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 2206",
+    "dev:vercel": "npx vercel dev --listen 2206",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -16,13 +17,17 @@
     "axios": "^1.11.0",
     "date-fns": "^4.1.0",
     "firebase": "^12.4.0",
+    "imagekit": "^6.0.0",
+    "imagekit-javascript": "^4.0.1",
     "react": "^19.1.1",
     "react-datepicker": "^8.8.0",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
+    "react-image-crop": "^11.1.2",
     "react-router": "^7.8.2",
+    "recharts": "^3.9.2",
     "tailwindcss": "^4.1.12",
     "zod": "^4.1.5"
   },
@@ -30,6 +35,7 @@
     "@eslint/js": "^9.33.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@vercel/node": "^5.8.22",
     "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 export function useDeleteProject() {
   const queryClient = useQueryClient();
 
-  const { mutate: deleteProject, isPending: isDeleting } = useMutation({
+  const { mutate: removeProject, isPending: isDeleting } = useMutation({
     mutationFn: deleteProjectById,
 
     onSuccess: () => {
@@ -19,5 +19,5 @@ export function useDeleteProject() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { deleteProject, isDeleting };
+  return { removeProject, isDeleting };
 }

@@ -32,8 +32,14 @@ type WindowProps = {
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 // 1)
-function Modal({ children }: { children: ReactNode }) {
-  const [openName, setOpenName] = useState<string>('');
+function Modal({
+  openOnMount,
+  children,
+}: {
+  openOnMount?: string;
+  children: ReactNode;
+}) {
+  const [openName, setOpenName] = useState<string>(openOnMount ?? '');
 
   const close = () => setOpenName('');
   const open = setOpenName;
@@ -50,7 +56,7 @@ function Modal({ children }: { children: ReactNode }) {
         document.body.style.overflow = 'auto';
       };
     },
-    [openName]
+    [openName],
   );
 
   return (
@@ -87,7 +93,11 @@ function Window({ name, children }: WindowProps) {
   if (openName !== name) return null;
 
   return createPortal(
-    <div className="fixed inset-0 w-full h-dvh bg-gray-100/50 backdrop-blur-xs z-[1000] transition-all duration-500 dark:bg-gray-900/50">
+    <div
+      className="fixed inset-0 w-full h-dvh bg-gray-100/50 backdrop-blur-xs z-[1000] transition-all duration-500 dark:bg-gray-900/50"
+      data-modal-portal
+      // onClick={close}
+    >
       <div
         ref={ref}
         className="fixed top-1/2 left-1/2 -translate-1/2 max-h-10/12 bg-gray-50 px-7 py-8 shadow-lg rounded overflow-y-auto transition-all duration-500 dark:bg-gray-800"
@@ -102,7 +112,7 @@ function Window({ name, children }: WindowProps) {
         <div>{cloneElement(children, { onClose: close })}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 

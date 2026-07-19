@@ -1,4 +1,4 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form';
 
 import FormRow from '../../ui/FormRow';
 import type { ProjectFormInput, ProjectType } from './types';
@@ -6,6 +6,9 @@ import { useCreateProject } from './useCreateProject';
 import { useEditProject } from './useEditProject';
 
 import { formatTimestampForInput } from '../../utils/helpers';
+
+import { useMembers } from '../settings/useMembers';
+import { HiPlus, HiXMark } from 'react-icons/hi2';
 
 //
 type CreateProjectFormProps = {
@@ -18,14 +21,15 @@ function CreateProjectForm({
   onClose,
 }: CreateProjectFormProps) {
   //
+  const { members } = useMembers();
+
+  //
   const { createProject, isCreating } = useCreateProject();
   const { editProject, isEditing } = useEditProject();
-
   const isWorking = isCreating || isEditing;
 
   //
   const { id: projectId, ...editValues } = projectToEdit;
-
   const isEditSession = !!projectId;
 
   //
@@ -33,50 +37,64 @@ function CreateProjectForm({
     ? {
         ...editValues,
         technologies: editValues.technologies.join(', '),
-        assignees: editValues.assignees?.map((ass) => ass.name).join(', '),
+        assignees:
+          editValues.assignees?.map((ass) => ({
+            memberId: ass.memberId ?? '',
+            name: ass.name,
+          })) ?? [],
         dueDate: formatTimestampForInput(editValues.dueDate),
         startDate: formatTimestampForInput(editValues.startDate),
         endDate: formatTimestampForInput(editValues.endDate),
         completionPercentage: String(editValues.completionPercentage || 0),
       }
-    : {};
+    : {
+        completionPercentage: '0',
+        assignees: [{ memberId: '', name: '' }],
+      };
 
-  const { register, handleSubmit, reset, formState, watch } =
+  const { register, handleSubmit, reset, formState, watch, control } =
     useForm<ProjectFormInput>({
       defaultValues: formattedEditValues,
     });
 
   const { errors } = formState;
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'assignees',
+  });
 
   //
-  const percentageValue = watch(
-    'completionPercentage',
-    String(editValues.completionPercentage || 0)
-  );
+  const percentageValue = watch('completionPercentage');
 
   //
   const onSubmit: SubmitHandler<ProjectFormInput> = (data) => {
     const image =
       typeof data.image === 'string' ? data.image : data.image[0].name;
 
+    const assignees = data.assignees
+      ?.map((ass) => {
+        const member = members?.find((m) => m.id === ass.memberId);
+        return member ? { memberId: member.id, name: member.name } : null;
+      })
+      .filter((ass): ass is { memberId: string; name: string } => ass !== null);
+
+    const projectData = { ...data, image, assignees };
+
     if (!isEditSession) {
-      createProject(
-        { ...data, image: image },
-        {
-          onSuccess: () => {
-            reset();
-            onClose?.();
-          },
-        }
-      );
+      createProject(projectData, {
+        onSuccess: () => {
+          reset();
+          onClose?.();
+        },
+      });
     } else {
       editProject(
-        { newProjectData: { ...data, image: image }, projectId },
+        { newProjectData: projectData, projectId },
         {
           onSuccess: () => {
             onClose?.();
           },
-        }
+        },
       );
     }
   };
@@ -91,7 +109,7 @@ function CreateProjectForm({
           {...register('title', {
             required: 'This field is requried',
           })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         />
       </FormRow>
 
@@ -102,7 +120,7 @@ function CreateProjectForm({
           {...register('status', {
             required: 'This field is requried',
           })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700 dark:bg-gray-800"
+          className="form__input dark:bg-gray-800"
         >
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
@@ -118,7 +136,7 @@ function CreateProjectForm({
           {...register('description', {
             required: 'This field is requried',
           })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         ></textarea>
       </FormRow>
 
@@ -144,7 +162,7 @@ function CreateProjectForm({
           {...register('technologies', {
             required: 'This field is requried',
           })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         ></textarea>
       </FormRow>
 
@@ -155,7 +173,7 @@ function CreateProjectForm({
           id="liveLink"
           placeholder="https://..."
           {...register('liveLink')}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         />
       </FormRow>
 
@@ -166,7 +184,7 @@ function CreateProjectForm({
           id="githubLink"
           placeholder="https://github.com/..."
           {...register('githubLink')}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         />
       </FormRow>
 
@@ -178,7 +196,7 @@ function CreateProjectForm({
           {...register('dueDate', {
             required: 'This field is requried',
           })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700 dark:bg-gray-800"
+          className="form__input dark:bg-gray-800"
         />
       </FormRow>
 
@@ -189,7 +207,7 @@ function CreateProjectForm({
           id="startDate"
           placeholder="Select data start"
           {...register('startDate')}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700 dark:bg-gray-800"
+          className="form__input dark:bg-gray-800"
         />
       </FormRow>
 
@@ -200,7 +218,7 @@ function CreateProjectForm({
           id="endDate"
           placeholder="Select data end"
           {...register('endDate')}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700 dark:bg-gray-800"
+          className="form__input dark:bg-gray-800"
         />
       </FormRow>
 
@@ -209,20 +227,56 @@ function CreateProjectForm({
         <textarea
           id="notes"
           {...register('notes')}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
+          className="form__input"
         ></textarea>
       </FormRow>
 
       {/* Assignees */}
       <FormRow label="Assignees" error={errors?.assignees?.message}>
-        <textarea
-          id="assignees"
-          placeholder="Mahmoud Mostafa, Ahmed Hamdi, Sara..."
-          {...register('assignees', {
-            required: 'This field is requried',
-          })}
-          className="px-2 py-1 border-1 border-gray-300 shadow-sm rounded dark:border-gray-700"
-        ></textarea>
+        <div className="space-y-2">
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex items-center gap-2">
+              <select
+                {...register(`assignees.${index}.memberId`, {
+                  required: 'Please select a member',
+                })}
+                onChange={(e) => {
+                  const member = members?.find((m) => m.id === e.target.value);
+                  if (member) {
+                    register(`assignees.${index}.name`).onChange({
+                      target: { value: member.name },
+                    });
+                  }
+                }}
+                className="form__input dark:bg-gray-800 flex-1"
+              >
+                <option value="">Select member...</option>
+                {members?.map((member) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="text-rose-500 hover:text-rose-700 transition-colors"
+              >
+                <HiXMark className="size-5" />
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => append({ memberId: '', name: '' })}
+            className="flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 transition-colors"
+          >
+            <HiPlus className="size-4" />
+            Add Assignee
+          </button>
+        </div>
       </FormRow>
 
       {/* Completion Percentage */}
@@ -238,6 +292,10 @@ function CreateProjectForm({
             max={100}
             {...register('completionPercentage', {
               required: 'This field is requried',
+              min: {
+                value: 10,
+                message: 'Completion Percentage must be at least 10%',
+              },
             })}
             className="flex-1 h-2 bg-gray-300 rounded-full appearance-none cursor-pointer slider dark:bg-gray-700"
           />

@@ -30,7 +30,7 @@ const collectionRef = collection(database, 'projects');
 type FilterType = {
   field: string;
   value: string;
-  method?: string | '==';
+  method?: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'array-contains';
 };
 
 type GetProjectApi = {
@@ -63,7 +63,7 @@ export const getProjects = async ({
         const operator = filter.method || '==';
         baseQuery = query(
           baseQuery,
-          where(filter.field, operator as any, filter.value),
+          where(filter.field, operator, filter.value),
         );
       });
     }
@@ -126,19 +126,6 @@ export const getProjects = async ({
 // Get single project by id
 export const getProjectById = async (id: string): Promise<ProjectType> => {
   try {
-    // const data = onSnapshot(doc(database, 'projects', id), (doc) => {
-    //   if (res.exists()) {
-    //     const data = { ...res.data(), id: res.id };
-
-    //     return data as ProjectType;
-
-    //     //
-    //   } else {
-    //     throw new Error('Project not found');
-    //   }
-    // });
-    // return data
-
     const docRef = doc(database, 'projects', id);
     const docSnap = await getDoc(docRef);
 
@@ -150,6 +137,7 @@ export const getProjectById = async (id: string): Promise<ProjectType> => {
 
     //
   } catch (err) {
+    console.error(err);
     throw err;
   }
 };
@@ -161,8 +149,6 @@ export const createEditProjectApi = async (
   id?: string,
 ) => {
   try {
-    //
-
     const newProject = {
       title: project.title.trim(),
       status: project.status,
@@ -177,14 +163,10 @@ export const createEditProjectApi = async (
         .map((tech: string) => tech.trim())
         .filter(Boolean),
 
-      assignees: project?.assignees
-        ?.split(',')
-        .map((assignee: string) => assignee.trim())
-        .filter(Boolean)
-        .map((ass: string) => ({
-          name: ass,
-          avatar: `${ass.toLowerCase().replace(/\s+/g, '-')}`,
-        })),
+      assignees: project.assignees?.map((ass) => ({
+        memberId: ass.memberId,
+        name: ass.name,
+      })),
 
       startDate: project.startDate
         ? Timestamp.fromDate(new Date(`${project.startDate}T00:00:00`))
@@ -199,6 +181,7 @@ export const createEditProjectApi = async (
         : null,
 
       notes: project.notes?.trim() || '',
+      ...(id ? {} : { createdAt: Timestamp.now() }),
     };
 
     // UPDATE
@@ -226,6 +209,7 @@ export const deleteProjectById = async (id: string) => {
 
     //
   } catch (err) {
+    console.error(err);
     throw err;
   }
 };

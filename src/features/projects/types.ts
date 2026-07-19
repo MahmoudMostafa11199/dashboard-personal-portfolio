@@ -1,8 +1,8 @@
 export type ProjectStatus = 'pending' | 'in-progress' | 'completed';
 
 export type Assignee = {
+  memberId: string;
   name: string;
-  avatar: string;
 };
 
 export type ProjectType = {
@@ -21,6 +21,9 @@ export type ProjectType = {
   endDate?: FirebaseTimestamp;
   completionPercentage?: number;
   assignees?: Assignee[];
+
+  createdAt?: FirebaseTimestamp;
+  updatedAt?: FirebaseTimestamp;
 };
 
 export type FirebaseTimestamp = {
@@ -36,7 +39,7 @@ export type ProjectFormInput = {
   image: FileList | string;
   completionPercentage: string;
   technologies: string;
-  assignees?: string;
+  assignees?: Assignee[];
   startDate?: string;
   endDate?: string;
   dueDate?: string;

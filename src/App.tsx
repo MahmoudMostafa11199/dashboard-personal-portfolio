@@ -19,6 +19,7 @@ import Account from './pages/Account';
 // UI
 import ProtectRoute from './ui/ProtectRoute';
 import Project from './pages/Project';
+import Settings from './pages/Settings';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -53,6 +54,7 @@ function App() {
               <Route path="experiences" element={<Experience />} />
               <Route path="certifications" element={<Certifications />} />
               <Route path="account" element={<Account />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

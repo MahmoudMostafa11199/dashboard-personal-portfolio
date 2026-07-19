@@ -7,7 +7,7 @@ function Logo() {
     <img
       src={`/logo-${isDarkMode ? '2' : '1'}.png`}
       alt="logo"
-      className="h-8"
+      className="h-8 hidden sm:block"
     />
   );
 }

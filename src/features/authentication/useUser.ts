@@ -9,13 +9,14 @@ export function useUser() {
     isPending: isLoading,
     isError,
     error,
-  } = useQuery<CurrentUser, Error>({
+  } = useQuery<CurrentUser | null, Error>({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   });
 
   const user = userData?.user ?? null;
+  const profile = userData?.profile ?? null;
   const isAuthenticated = !!userData && userData?.role === 'authenticated';
 
-  return { user, isLoading, isAuthenticated, isError, error };
+  return { user, profile, isLoading, isAuthenticated, isError, error };
 }
