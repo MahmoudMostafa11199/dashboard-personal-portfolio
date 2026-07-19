@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router';
 
 import type { DocumentSnapshot } from 'firebase/firestore';
 
-import { getProjects } from '../../services/apiProjects';
+import { getProjects, type FilterType } from '../../services/apiProjects';
 
 //
 type UseProjectsProps = {
@@ -19,10 +19,10 @@ export function useProjects({ pagination }: UseProjectsProps) {
 
   // Filter
   const filterValue = serchParams.get('status');
-  const filters =
-    !filterValue || filterValue === 'all'
-      ? null
-      : [{ field: 'status', value: filterValue, method: '==' }];
+  const filters: FilterType[] | null =
+    filterValue && filterValue !== 'all'
+      ? [{ field: 'status', value: filterValue, method: '==' }]
+      : null;
 
   // Sort
   const sortByRaw = serchParams.get('sortBy') || 'startDate-desc';

@@ -8,8 +8,8 @@ const experiencesSeed: ExperienceFormType[] = [
     description:
       'Completed an intensive 6-month MERN stack specialization covering frontend architecture, backend API design, authentication, and deployment. Built and defended Avvocato, an Arabic-native AI-powered legal case management SaaS platform for Egyptian lawyers, as part of a 7-person team.',
     type: 'training',
-    startDate: Timestamp.fromDate(new Date('2026-01-01')),
-    endDate: Timestamp.fromDate(new Date('2026-06-25')),
+    startDate: '2025-12-01',
+    endDate: '2026-06-30',
     current: false,
     company: {
       name: 'Information Technology Institute (ITI)',

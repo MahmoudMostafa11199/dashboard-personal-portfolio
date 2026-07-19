@@ -1,5 +1,5 @@
 import type { Timestamp } from 'firebase/firestore';
-import type { CertificationIssuer } from '../../utils/CertificationsIssuers';
+import type { CertificationIssuer } from '../../utils/certificationsIssuers';
 
 type CertificationBase = {
   title: string;

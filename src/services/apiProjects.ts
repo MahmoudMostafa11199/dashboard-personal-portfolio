@@ -27,7 +27,7 @@ const collectionRef = collection(database, 'projects');
 
 ////////////////////////////////////////
 // Get all projects
-type FilterType = {
+export type FilterType = {
   field: string;
   value: string;
   method?: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'array-contains';

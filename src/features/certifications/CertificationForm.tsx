@@ -6,7 +6,7 @@ import FileUploadModal from '../../ui/FileUploadModal';
 import FormRow from '../../ui/FormRow';
 import Modal from '../../ui/Modal';
 import SearchableSelect from '../../ui/SearchableSelect';
-import { CERTIFICATION_ISSUERS } from '../../utils/CertificationsIssuers';
+import { CERTIFICATION_ISSUERS } from '../../utils/certificationsIssuers';
 import type { CertificationFormType, CertificationType } from './types';
 import { useCreateCertification } from './useCreateCertification';
 import { useUpdateCertification } from './useUpdateCertification';
