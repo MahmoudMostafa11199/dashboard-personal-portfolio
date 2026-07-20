@@ -4,9 +4,12 @@ import ChangePassword from '../features/settings/ChangePassword';
 import DangerZone from '../features/settings/DangerZone';
 import TeamMembers from '../features/settings/TeamMembers';
 import PageHeader from '../ui/PageHeader';
+import SpinnerMini from '../ui/SpinnerMini';
 
 export default function Settings() {
   const { user } = useUser();
+
+  if (!user) return <SpinnerMini />;
 
   return (
     <>
