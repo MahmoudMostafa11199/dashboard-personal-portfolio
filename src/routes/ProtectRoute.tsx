@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import Spinner from './Spinner';
+import Spinner from '../ui/Spinner';
 
 import { useUser } from '../features/authentication/useUser';
 

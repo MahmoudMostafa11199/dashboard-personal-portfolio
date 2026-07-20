@@ -24,7 +24,9 @@ function Header() {
           </button>
 
           <Link to="/dashboard">
-            <Logo />
+            <span className="hidden md:block">
+              <Logo />
+            </span>
           </Link>
         </div>
 

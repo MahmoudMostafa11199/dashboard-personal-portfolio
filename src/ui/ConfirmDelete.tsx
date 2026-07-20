@@ -18,7 +18,7 @@ function ConfirmDelete({
   }
 
   return (
-    <div className="w-lg">
+    <div className="w-full max-w-lg">
       <h2 className="text-xl font-semibold mb-3">Delete {resourceName}</h2>
 
       <p className="mb-6 text-gray-400">

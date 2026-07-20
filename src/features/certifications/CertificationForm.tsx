@@ -66,12 +66,12 @@ function CreateCertificationForm({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4">
       <h2 className="text-lg font-semibold">
         {isEditSession ? 'Edit Certification' : 'Add New Certification'}
       </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-3">
         {/* Title */}
         <FormRow label="Certification Title" error={errors?.title?.message}>
           <input

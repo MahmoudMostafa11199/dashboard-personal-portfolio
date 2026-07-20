@@ -100,7 +100,7 @@ function Window({ name, children }: WindowProps) {
     >
       <div
         ref={ref}
-        className="fixed top-1/2 left-1/2 -translate-1/2 max-h-10/12 bg-gray-50 px-7 py-8 shadow-lg rounded overflow-y-auto transition-all duration-500 dark:bg-gray-800"
+        className="fixed top-1/2 left-1/2 -translate-1/2 w-[calc(100%-2rem)] md:w-max sm:max-w-3xl max-h-[85dvh] bg-gray-50 px-4 py-6 sm:px-7 sm:py-8 shadow-lg rounded overflow-y-auto overflow-x-hidden transition-all duration-500 dark:bg-gray-800"
       >
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition"

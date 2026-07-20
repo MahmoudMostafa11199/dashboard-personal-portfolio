@@ -1,10 +1,12 @@
-import ProjectRow from './ProjectRow';
-import SpinnerMini from '../../ui/SpinnerMini';
+import { HiOutlineFolderOpen } from 'react-icons/hi2';
 
+import EmptyState from '../../ui/EmptyState';
 import Pagination from '../../ui/Pagination';
-import Empty from '../../ui/Empty';
-import { useProjectPagination } from './useProjectPagination';
 import { PAGE_SIZE } from '../../utils/constants';
+import { generateArray } from '../../utils/helpers';
+import ProjectRow from './ProjectRow';
+import ProjectRowSkelton from './ProjectRowSkelton';
+import { useProjectPagination } from './useProjectPagination';
 
 function ProjectTable() {
   const {
@@ -31,16 +33,18 @@ function ProjectTable() {
         </div>
 
         <section className="dark:bg-gray-900">
-          {isLoading && (
-            <div className="place-items-center py-2">
-              <SpinnerMini />
-            </div>
-          )}
+          {isLoading &&
+            generateArray(10).map((_, i) => <ProjectRowSkelton key={i} />)}
 
           {!isLoading && !count && (
-            <div className="text-center py-3">
-              <Empty resourceName="project" />
-            </div>
+            <EmptyState
+              icon={HiOutlineFolderOpen}
+              filterKey="status"
+              emptyTitle="No projects yet"
+              emptyMessage="Once you add a project, it'll show up here."
+              filteredTitle="No matching projects"
+              filteredMessage="Try a different status filter or clear it to see all projects."
+            />
           )}
 
           {!isLoading &&

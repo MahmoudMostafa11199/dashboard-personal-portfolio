@@ -6,6 +6,7 @@ import SpinnerMini from '../../ui/SpinnerMini';
 import Button from '../../ui/Button';
 
 import { useLogin } from './useLogin';
+import toast from 'react-hot-toast';
 
 function LoginForm() {
   const [email, setEmail] = useState<string>('');
@@ -15,7 +16,7 @@ function LoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) return;
+    if (!email || !password) return toast.error('email and password required');
 
     login(
       { email, password },
@@ -24,7 +25,7 @@ function LoginForm() {
           setEmail('');
           setPassword('');
         },
-      }
+      },
     );
   };
 
@@ -63,8 +64,19 @@ function LoginForm() {
         </FormRowVertical>
 
         <FormRowVertical>
-          <Button type="submit" variation="primary" size="large">
-            {isLoggingIn ? <SpinnerMini /> : 'Login'}
+          <Button
+            type="submit"
+            variation="primary"
+            size="large"
+            disabled={isLoggingIn}
+          >
+            {isLoggingIn ? (
+              <span className="flex justify-center gap-2">
+                Logging in... <SpinnerMini />
+              </span>
+            ) : (
+              'Login'
+            )}
           </Button>
         </FormRowVertical>
       </form>

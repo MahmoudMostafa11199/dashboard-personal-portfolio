@@ -66,7 +66,11 @@ function CreateExperienceForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-3xl space-y-2">
+    <div className="w-full space-y-4">
+      <h2 className="text-lg font-semibold">
+        {isEditSession ? 'Edit Experience' : 'Add New Experience'}
+      </h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       {/* Title */}
       <FormRow label="Experience Title" error={errors?.title?.message}>
         <input
@@ -243,6 +247,7 @@ function CreateExperienceForm({
         </Button>
       </FormRow>
     </form>
+    </div>
   );
 }
 

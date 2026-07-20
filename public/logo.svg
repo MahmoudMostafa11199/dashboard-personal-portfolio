@@ -1,0 +1,30 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#151d2c"/>
+      <stop offset="100%" stop-color="#0b111d"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fe6d5e"/>
+      <stop offset="100%" stop-color="#fe3a34"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#fe5e55" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fe5e55" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="200" height="200" rx="46" fill="url(#bgGrad)"/>
+  <circle cx="100" cy="96" r="80" fill="url(#glow)"/>
+
+  <!-- Code brackets -->
+  <path d="M70 64 L46 100 L70 136" fill="none" stroke="url(#accentGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M130 64 L154 100 L130 136" fill="none" stroke="url(#accentGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Monogram -->
+  <text x="100" y="102" text-anchor="middle" dominant-baseline="central" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="64" fill="#ffffff">M</text>
+
+  <!-- Status/data node accent -->
+  <circle cx="158" cy="42" r="9" fill="url(#accentGrad)"/>
+</svg>

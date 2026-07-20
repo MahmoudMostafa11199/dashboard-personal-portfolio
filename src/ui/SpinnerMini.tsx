@@ -1,7 +1,11 @@
 import { BiLoaderAlt } from 'react-icons/bi';
 
 function SpinnerMini() {
-  return <BiLoaderAlt className="icon animate-spin" />;
+  return (
+    <div className="flex items-center justify-center">
+      <BiLoaderAlt className="animate-spin" />
+    </div>
+  );
 }
 
 export default SpinnerMini;
