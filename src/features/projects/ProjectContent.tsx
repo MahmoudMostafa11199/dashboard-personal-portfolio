@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { BsArrowUpRight, BsGithub } from 'react-icons/bs';
 
 import type { ProjectType } from './types';
-import { IMAGE_URL } from '../../utils/constants';
+// import { IMAGE_URL } from '../../utils/constants';
 
 import ProjectTabs from './ProjectTabs';
 import ProjectOverview from './ProjectOverview';
@@ -37,13 +37,21 @@ function ProjectContent({ project }: ProjectContectPropa) {
         </div>
 
         <img
-          src={`${IMAGE_URL}/projects/optimized/${project.image}?raw=true`}
+          src={`${project.image}?tr=w-800,h-560,c-at_max`}
           alt={project.title}
           className="w-full @2xl:w-auto max-w-full @2xl:max-w-[35rem] max-h-[16rem] @2xl:max-h-[25rem] object-contain"
           loading="lazy"
           width="560"
           height="400"
         />
+        {/* <img
+          src={`${IMAGE_URL}/projects/optimized/${project.image}?raw=true`}
+          alt={project.title}
+          className="w-full @2xl:w-auto max-w-full @2xl:max-w-[35rem] max-h-[16rem] @2xl:max-h-[25rem] object-contain"
+          loading="lazy"
+          width="560"
+          height="400"
+        /> */}
       </div>
 
       <div className="overflow-x-auto -mx-4 px-4 @2xl:mx-0 @2xl:px-0">

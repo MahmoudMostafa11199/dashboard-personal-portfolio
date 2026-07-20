@@ -1,14 +1,17 @@
 import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form';
+import { HiPhoto, HiPlus, HiXMark } from 'react-icons/hi2';
 
-import FormRow from '../../ui/FormRow';
 import type { ProjectFormInput, ProjectType } from './types';
 import { useCreateProject } from './useCreateProject';
 import { useEditProject } from './useEditProject';
-
 import { formatTimestampForInput } from '../../utils/helpers';
-
 import { useMembers } from '../settings/useMembers';
-import { HiPlus, HiXMark } from 'react-icons/hi2';
+
+import FormRow from '../../ui/FormRow';
+import { useState } from 'react';
+import Modal from '../../ui/Modal';
+import Button from '../../ui/Button';
+import FileUploadModal from '../../ui/FileUploadModal';
 
 //
 type CreateProjectFormProps = {
@@ -22,6 +25,8 @@ function CreateProjectForm({
 }: CreateProjectFormProps) {
   //
   const { members } = useMembers();
+
+  const [imageURL, setImageURL] = useState(projectToEdit?.image ?? '');
 
   //
   const { createProject, isCreating } = useCreateProject();
@@ -65,12 +70,10 @@ function CreateProjectForm({
 
   //
   const percentageValue = watch('completionPercentage');
+  const titleValue = watch('title');
 
   //
   const onSubmit: SubmitHandler<ProjectFormInput> = (data) => {
-    const image =
-      typeof data.image === 'string' ? data.image : data.image[0].name;
-
     const assignees = data.assignees
       ?.map((ass) => {
         const member = members?.find((m) => m.id === ass.memberId);
@@ -78,7 +81,7 @@ function CreateProjectForm({
       })
       .filter((ass): ass is { memberId: string; name: string } => ass !== null);
 
-    const projectData = { ...data, image, assignees };
+    const projectData = { ...data, image: imageURL, assignees };
 
     if (!isEditSession) {
       createProject(projectData, {
@@ -152,16 +155,62 @@ function CreateProjectForm({
         </FormRow>
 
         {/* Image */}
-        <FormRow label="Project Photo" error={errors?.image?.message}>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            {...register('image', {
-              required: isEditSession ? false : 'This field is requried',
-            })}
-            className="input__file dark:border-gray-700"
-          />
+        <FormRow label="Project Photo">
+          <div className="flex items-center gap-4">
+            <div className="w-24 h-16 rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden shrink-0">
+              {imageURL ? (
+                <img
+                  src={imageURL}
+                  alt="project"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <HiPhoto size={22} className="text-gray-400" />
+              )}
+            </div>
+
+            <Modal>
+              <div className="flex items-center gap-3">
+                <div className="relative group">
+                  <Modal.Open opens="upload-project-image">
+                    <Button
+                      disabled={!titleValue}
+                      type="button"
+                      variation="secondary"
+                      size="small"
+                    >
+                      {imageURL ? 'Change Photo' : 'Upload Photo'}
+                    </Button>
+                  </Modal.Open>
+                  {!titleValue && (
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                      Enter a title first
+                    </div>
+                  )}
+                </div>
+
+                {imageURL && (
+                  <button
+                    type="button"
+                    onClick={() => setImageURL('')}
+                    className="text-sm px-4 py-1.5 rounded-md border border-gray-300 transition-colors hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+
+              <Modal.Window name="upload-project-image">
+                <FileUploadModal
+                  acceptImages={true}
+                  enableCrop={false}
+                  onSave={(url) => setImageURL(url as string)}
+                  folder="Projects"
+                  fileName={`${titleValue}-${Date.now()}`}
+                />
+              </Modal.Window>
+            </Modal>
+          </div>
         </FormRow>
 
         {/* Technologies */}

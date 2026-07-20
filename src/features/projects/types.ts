@@ -36,7 +36,7 @@ export type ProjectFormInput = {
   title: string;
   status: ProjectStatus;
   description: string;
-  image: FileList | string;
+  image: string;
   completionPercentage: string;
   technologies: string;
   assignees?: Assignee[];
