@@ -5,8 +5,8 @@ function Footer() {
 
   const currentYear = new Date().getFullYear();
 
-  const startYear = user?.metadata.creationTime
-    ? new Date(user.metadata.creationTime).getFullYear()
+  const startYear = user?.metadata?.creationTime
+    ? new Date(user.metadata?.creationTime).getFullYear()
     : currentYear;
 
   return (
