@@ -17,7 +17,7 @@ function Sidebar() {
       <aside
         className={`fixed inset-y-0 left-0 z-40 w-[260px] bg-stone-50 border-e-1 border-gray-50 px-4 py-6 dark:bg-gray-900 dark:border-gray-600 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:static md:translate-x-0 md:row-span-2 md:z-auto`}
       >
-        <span className="block md:hidden mb-8 -mt-4">
+        <span className="block md:hidden mb-8 -mt-1">
           <Logo />
         </span>
 

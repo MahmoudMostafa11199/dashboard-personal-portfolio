@@ -10,7 +10,7 @@ const ACTIONS = [
 
 function QuickActions() {
   return (
-    <div className="bg-white dark:bg-gray-750 rounded-md p-5 sm:p-6 mb-8">
+    <div className="bg-white dark:bg-gray-750 rounded-md p-5 sm:p-6">
       <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
 
       <div className="flex flex-wrap gap-3">

@@ -58,9 +58,9 @@ function Dashboard() {
           <SkillsChart />
 
           <RecentActivity />
-        </div>
 
-        <QuickActions />
+          <QuickActions />
+        </div>
       </div>
     </>
   );
