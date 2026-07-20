@@ -176,7 +176,7 @@ function FileUploadModal({
   };
 
   return (
-    <div className="w-[500px] space-y-4">
+    <div className="w-full max-w-6xl  space-y-4">
       <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
         {enableCrop ? 'Upload & Crop Photo' : 'Upload File'}
       </h2>
