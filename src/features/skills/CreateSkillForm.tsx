@@ -59,7 +59,7 @@ function CreateSkillForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-3xl space-y-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       {/* Name */}
       <FormRow label="Skill Name" error={errors?.name?.message}>
         <input

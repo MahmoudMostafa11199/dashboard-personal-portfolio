@@ -1,69 +1,122 @@
-# React + TypeScript + Vite
+# Personal Portfolio Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%26%20Auth-FFCA28?logo=firebase&logoColor=black)
+![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?logo=vercel&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-Currently, two official plugins are available:
+A full-featured personal dashboard for managing and showcasing my professional
+profile — projects, skills, work experience, certifications, and team
+collaborators — all backed by Firebase and deployed on Vercel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React, TypeScript, React Router
+- **Styling:** Tailwind CSS (with container queries for nested-layout responsiveness)
+- **State/Data:** TanStack Query (React Query), React Hook Form
+- **Backend/Database:** Firebase Authentication, Firestore
+- **Media:** ImageKit (image hosting, upload, and on-the-fly transformations)
+- **Deployment:** Vercel
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Dashboard Home** — at-a-glance overview with stats cards, recent
+  activity feed, in-progress project breakdown, and a skills category chart
+- **Projects** — full CRUD with status tracking, completion percentage,
+  assignees, tech stack tags, live/GitHub links, and image uploads
+- **Skills** — categorized skill management with search and filtering
+- **Experiences** — a timeline of work and training history, linked to
+  specific skills used
+- **Certifications** — credential tracking with issuer search, image
+  uploads, and verification links
+- **Team Members** — manage collaborators who can be assigned to projects
+- **Settings** — profile photo, password changes, and account management
+- **Responsive design** — fully responsive across mobile, tablet, and
+  desktop, including a collapsible sidebar drawer on smaller screens
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js 18+
+- A Firebase project (Firestore + Authentication enabled)
+- An ImageKit account
+
+### Installation
+
+```bash
+git clone https://github.com/MahmoudMostafa11199/dashboard-personal-portfolio.git
+cd dashboard-personal-portfolio
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the project root with your Firebase and ImageKit
+credentials:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+
+VITE_IMAGEKIT_PUBLIC_KEY=
+VITE_IMAGEKIT_URL_ENDPOINT=
+IMAGEKIT_PRIVATE_KEY=
 ```
+
+> Note: if deploying to Vercel, add these same variables under
+> **Project Settings → Environment Variables**, since your local `.env`
+> file is not included in the deployment.
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```bash
+├── api/                # Vercel serverless functions (e.g. ImageKit auth)
+├── public/              # Static assets
+└── src/
+    ├── context/          # React context providers (e.g. Sidebar state)
+    ├── features/         # Feature-based modules (projects, skills,
+    │                        experiences, certifications, members,
+    │                        dashboard, settings, authentication)
+    ├── hooks/            # Shared custom hooks
+    ├── layout/           # App shell — Header, Sidebar, Footer, DashboardLayout
+    ├── pages/            # Route-level page components
+    ├── routes/           # Route definitions / router setup
+    ├── seeds/            # One-off Firestore seed scripts
+    ├── services/         # Firebase/Firestore API functions per feature
+    ├── styles/           # Global styles
+    ├── ui/               # Shared/reusable UI components (Modal, FormRow,
+    │                        EmptyState, SearchableSelect, PageHeader, etc.)
+    ├── utils/            # Constants and helper functions
+    ├── App.tsx
+    └── main.tsx
+```
+
+## Deployment
+
+This project is deployed on Vercel. A `vercel.json` rewrite is included to
+ensure client-side routes resolve correctly on direct navigation/refresh
+(without interfering with the `/api` serverless functions used for
+ImageKit authentication).
+
+## License
+
+This project is proprietary. See [LICENSE](./LICENSE) for details.
