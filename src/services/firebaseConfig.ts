@@ -4,14 +4,14 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDp_1VUsF5ZRoNakvEmO-Bj9WbxzYnunTE',
-  authDomain: 'personal-portfolio-89838.firebaseapp.com',
-  databaseURL: 'https://personal-portfolio-89838-default-rtdb.firebaseio.com',
-  projectId: 'personal-portfolio-89838',
-  storageBucket: 'personal-portfolio-89838.firebasestorage.app',
-  messagingSenderId: '117593232096',
-  appId: '1:117593232096:web:06962b13cab235e9fa3685',
-  measurementId: 'G-TCYEKD87SE',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

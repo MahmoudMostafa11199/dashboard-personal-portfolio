@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { BsArrowUpRight, BsGithub } from 'react-icons/bs';
 
 import type { ProjectType } from './types';
-import { IMAGE_URL } from '../../utils/constants';
+// import { IMAGE_URL } from '../../utils/constants';
 
 import ProjectTabs from './ProjectTabs';
 import ProjectOverview from './ProjectOverview';
@@ -14,6 +14,7 @@ interface ProjectContectPropa {
 
 function ProjectContent({ project }: ProjectContectPropa) {
   const [activeTab, setActiveTab] = useState<string>('overview');
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div className="@container bg-stone-300 p-4 sm:p-6 rounded dark:bg-gray-900">
@@ -36,14 +37,34 @@ function ProjectContent({ project }: ProjectContectPropa) {
           </div>
         </div>
 
-        <img
+        {project.image && (
+          <div className="relative w-full @2xl:w-auto max-w-full @2xl:max-w-[35rem] h-[16rem] @2xl:h-[25rem]">
+            {!imageLoaded && (
+              <div className="absolute inset-0 rounded bg-gray-300 dark:bg-gray-800 animate-pulse" />
+            )}
+
+            <img
+              src={`${project.image}?tr=w-800,h-560,c-at_max`}
+              alt={project.title}
+              className={`w-full @2xl:w-auto max-w-full @2xl:max-w-[35rem] max-h-[16rem] @2xl:max-h-[25rem] object-contain transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              loading="lazy"
+              width="560"
+              height="400"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)}
+            />
+          </div>
+        )}
+        {/* <img
           src={`${IMAGE_URL}/projects/optimized/${project.image}?raw=true`}
           alt={project.title}
           className="w-full @2xl:w-auto max-w-full @2xl:max-w-[35rem] max-h-[16rem] @2xl:max-h-[25rem] object-contain"
           loading="lazy"
           width="560"
           height="400"
-        />
+        /> */}
       </div>
 
       <div className="overflow-x-auto -mx-4 px-4 @2xl:mx-0 @2xl:px-0">

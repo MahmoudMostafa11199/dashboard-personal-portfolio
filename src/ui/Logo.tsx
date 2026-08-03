@@ -1,12 +1,15 @@
+import { useId } from 'react';
 import { useDarkMode } from '../context/useDarkMode';
 
 function Logo() {
   const { isDarkMode } = useDarkMode();
+  const uid = useId();
+  const gradientId = `accentGrad-${uid}`;
 
   return (
     <svg height="56" viewBox="26 22 150 130" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#fe6d5e" />
           <stop offset="100%" stopColor="#fe3a34" />
         </linearGradient>
@@ -15,7 +18,7 @@ function Logo() {
       <path
         d="M64 64 L40 100 L64 136"
         fill="none"
-        stroke="url(#accentGrad)"
+        stroke={`url(#${gradientId})`}
         strokeWidth="14"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -23,7 +26,7 @@ function Logo() {
       <path
         d="M136 64 L160 100 L136 136"
         fill="none"
-        stroke="url(#accentGrad)"
+        stroke={`url(#${gradientId})`}
         strokeWidth="14"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -42,7 +45,7 @@ function Logo() {
         M
       </text>
 
-      <circle cx="158" cy="38" r="9" fill="url(#accentGrad)" />
+      <circle cx="158" cy="38" r="9" fill={`url(#${gradientId})`} />
     </svg>
   );
 }
