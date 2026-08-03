@@ -23,13 +23,13 @@ export default defineConfig({
         screenshots: [
           {
             src: '/screenshots/personal-dashboard-desktop.png',
-            sizes: '1280x720',
+            sizes: '1424x773',
             type: 'image/png',
             form_factor: 'wide',
           },
           {
             src: '/screenshots/personal-dashboard-mobile.png',
-            sizes: '750x1334',
+            sizes: '397x772',
             type: 'image/png',
           },
         ],
