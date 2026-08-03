@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from '../ui/Sidebar';
 import { SidebarProvider } from '../hooks/useSidebar';
+import { ButtonInstallApp } from '../ui/ButtonInstallApp';
 
 function DashboardLayout() {
   return (
@@ -12,10 +13,11 @@ function DashboardLayout() {
 
       <div className="md:grid md:grid-cols-[260px_1fr] grid-rows-[auto_1fr]">
         <Sidebar />
-
         <main className="bg-stone-150 dark:bg-gray-800 pt-7 px-5">
           <Outlet />
         </main>
+
+        <ButtonInstallApp />
 
         <Footer />
       </div>

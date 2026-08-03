@@ -1,10 +1,10 @@
-import {
-  HiHome,
-  HiClipboardDocumentList,
-  HiStar,
-  HiBriefcase,
-} from 'react-icons/hi2';
 import { FaCertificate, FaCog } from 'react-icons/fa';
+import {
+  HiBriefcase,
+  HiClipboardDocumentList,
+  HiHome,
+  HiStar,
+} from 'react-icons/hi2';
 
 import NavItem from './NavItem';
 
