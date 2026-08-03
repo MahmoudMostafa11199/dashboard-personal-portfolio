@@ -3,20 +3,33 @@ import { useEffect, useState } from 'react';
 import { RiMobileDownloadLine } from 'react-icons/ri';
 import { VscDesktopDownload } from 'react-icons/vsc';
 
+let globalDeferredPrompt: any = null;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    globalDeferredPrompt = e;
+  });
+}
+
 export function ButtonInstallApp() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInstallable, setIsInstallable] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<any>(globalDeferredPrompt);
+  const [isInstallable, setIsInstallable] = useState(!!globalDeferredPrompt);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
-      //
       e.preventDefault();
-
+      globalDeferredPrompt = e;
       setDeferredPrompt(e);
       setIsInstallable(true);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    if (globalDeferredPrompt) {
+      setIsInstallable(true);
+    }
 
     return () => {
       window.removeEventListener(
@@ -27,13 +40,15 @@ export function ButtonInstallApp() {
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    const promptEvent = deferredPrompt || globalDeferredPrompt;
+    if (!promptEvent) return;
 
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
+    promptEvent.prompt();
+    const { outcome } = await promptEvent.userChoice;
 
     if (outcome === 'accepted') {
       setIsInstallable(false);
+      globalDeferredPrompt = null;
     }
 
     setDeferredPrompt(null);
@@ -48,16 +63,8 @@ export function ButtonInstallApp() {
       aria-label="Install App"
       className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all duration-200 group"
     >
-      <VscDesktopDownload size={28} className="hidden md:block" />
-
-      <RiMobileDownloadLine size={28} className="md:hidden block" />
+      <VscDesktopDownload size={24} className="hidden md:block" />
+      <RiMobileDownloadLine size={24} className="block md:hidden" />
     </button>
-
-    // <button
-    //   onClick={handleInstallClick}
-    //   className="bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition fixed bottom-4 right-4 z-50 md:static md:bottom-auto md:right-auto md:mt-4"
-    // >
-    //   Install App 📱
-    // </button>
   );
 }
