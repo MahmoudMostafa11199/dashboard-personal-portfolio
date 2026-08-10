@@ -16,6 +16,12 @@ export type CurrentUser = {
     githubProfile?: string;
     linkedinUrl?: string;
     photoURL?: string;
+
+    description?: string;
+    titleWork?: string;
+    status?: 'available' | 'unavailable';
+    resumeUrl?: string;
+    twitterUrl?: string;
   };
   role: 'authenticated';
 };
@@ -28,6 +34,12 @@ export type ProfileFormInput = {
   phoneNumber: string;
   githubProfile?: string;
   linkedinUrl?: string;
+
+  description?: string;
+  titleWork: string;
+  status: 'available' | 'unavailable';
+  resumeUrl: string;
+  twitterUrl?: string;
 };
 
 export type UserData = UserInfo;

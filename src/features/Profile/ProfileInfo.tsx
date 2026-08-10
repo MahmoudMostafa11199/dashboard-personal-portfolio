@@ -8,7 +8,8 @@ type ProfileInfoProps = {
 };
 
 function ProfileInfo({ profile }: ProfileInfoProps) {
-  const { register, handleSubmit, formState, reset } = useForm({
+  console.log(profile);
+  const { register, handleSubmit, formState, reset, setValue } = useForm({
     defaultValues: {
       displayName: profile?.displayName || '',
       email: profile?.email || '',
@@ -17,6 +18,11 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
       phoneNumber: profile?.phoneNumber || '',
       githubProfile: profile?.githubProfile || '',
       linkedinUrl: profile?.linkedinUrl || '',
+      description: profile?.description || '',
+      twitterUrl: profile?.twitterUrl || '',
+      resumeUrl: profile?.resumeUrl || '',
+      titleWork: profile?.titleWork || '',
+      status: profile?.status || 'available',
     },
   });
   const { updatedUser, isEditing } = useUpdateProfileInfo();
@@ -52,6 +58,45 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
         />
       </FormRowVertical>
 
+      <FormRowVertical label="Title Work" error={errors.titleWork?.message}>
+        <input
+          type="text"
+          id="titleWork"
+          className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
+          disabled={isEditing}
+          {...register('titleWork', { required: 'Title Work is required' })}
+        />
+      </FormRowVertical>
+
+      <FormRowVertical label="Status" error={errors.status?.message}>
+        <div className="flex gap-2 pt-1">
+          <button
+            type="button"
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              profile?.status === 'available'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500'
+            }`}
+            onClick={() => setValue('status', 'available')}
+            disabled={isEditing}
+          >
+            Available
+          </button>
+          <button
+            type="button"
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              profile?.status === 'unavailable'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500'
+            }`}
+            onClick={() => setValue('status', 'unavailable')}
+            disabled={isEditing}
+          >
+            Unavailable
+          </button>
+        </div>
+      </FormRowVertical>
+
       <div className="md:col-span-2">
         <FormRowVertical label="Bio" error={errors.bio?.message}>
           <textarea
@@ -60,6 +105,15 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
             className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
             disabled={isEditing}
             {...register('bio', { required: 'Bio is required' })}
+          ></textarea>
+        </FormRowVertical>
+        <FormRowVertical label="description">
+          <textarea
+            id="description"
+            rows={4}
+            className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
+            disabled={isEditing}
+            {...register('description')}
           ></textarea>
         </FormRowVertical>
       </div>
@@ -73,6 +127,7 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
           {...register('location', { required: 'Location is required' })}
         />
       </FormRowVertical>
+
       <FormRowVertical label="Phone Number" error={errors.phoneNumber?.message}>
         <input
           type="tel"
@@ -88,6 +143,17 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
           })}
         />
       </FormRowVertical>
+
+      <FormRowVertical label="Resume URL" error={errors.resumeUrl?.message}>
+        <input
+          type="text"
+          id="resumeUrl"
+          className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
+          disabled={isEditing}
+          {...register('resumeUrl', { required: 'Resume url is required' })}
+        />
+      </FormRowVertical>
+
       <FormRowVertical
         label="GitHub Profile"
         error={errors.githubProfile?.message}
@@ -100,6 +166,7 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
           {...register('githubProfile')}
         />
       </FormRowVertical>
+
       <FormRowVertical label="LinkedIn URL" error={errors.linkedinUrl?.message}>
         <input
           type="text"
@@ -107,6 +174,16 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
           className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
           disabled={isEditing}
           {...register('linkedinUrl')}
+        />
+      </FormRowVertical>
+
+      <FormRowVertical label="Twitter/X URL" error={errors.twitterUrl?.message}>
+        <input
+          type="text"
+          id="twitterUrl"
+          className="form__input bg-gray-300 dark:bg-gray-600 disabled:opacity-50"
+          disabled={isEditing}
+          {...register('twitterUrl')}
         />
       </FormRowVertical>
 
