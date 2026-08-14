@@ -51,10 +51,12 @@ function CreateProjectForm({
         startDate: formatTimestampForInput(editValues.startDate),
         endDate: formatTimestampForInput(editValues.endDate),
         completionPercentage: String(editValues.completionPercentage || 0),
+        featured: editValues.featured ?? false,
       }
     : {
         completionPercentage: '0',
         assignees: [{ memberId: '', name: '' }],
+        featured: false,
       };
 
   const { register, handleSubmit, reset, formState, watch, control } =
@@ -224,6 +226,24 @@ function CreateProjectForm({
             })}
             className="form__input"
           ></textarea>
+        </FormRow>
+
+        {/* Featured */}
+        <FormRow label="Featured Project">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="featured"
+              {...register('featured')}
+              className="w-4 h-4 accent-primary-600 cursor-pointer"
+            />
+            <label
+              htmlFor="featured"
+              className="text-sm text-gray-600 dark:text-gray-400 cursor-pointer"
+            >
+              Show this project on the homepage
+            </label>
+          </div>
         </FormRow>
 
         {/* Live Demo */}

@@ -22,6 +22,8 @@ export type ProjectType = {
   completionPercentage?: number;
   assignees?: Assignee[];
 
+  featured?: boolean;
+
   createdAt?: FirebaseTimestamp;
   updatedAt?: FirebaseTimestamp;
 };
@@ -46,4 +48,6 @@ export type ProjectFormInput = {
   notes?: string;
   githubLink?: string;
   liveLink?: string;
+
+  featured?: boolean;
 };
