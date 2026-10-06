@@ -153,6 +153,7 @@ export const createEditProjectApi = async (
       title: project.title.trim(),
       status: project.status,
       description: project.description.trim(),
+      category: project.category.trim(),
       image: project.image,
       completionPercentage: Number(project.completionPercentage),
       liveLink: project.liveLink,

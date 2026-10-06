@@ -10,6 +10,7 @@ export type ProjectType = {
   title: string;
   description: string;
   image: string;
+  category: string;
   status: ProjectStatus;
   githubLink?: string;
   liveLink?: string;
@@ -39,6 +40,7 @@ export type ProjectFormInput = {
   status: ProjectStatus;
   description: string;
   image: string;
+  category: string;
   completionPercentage: string;
   technologies: string;
   assignees?: Assignee[];

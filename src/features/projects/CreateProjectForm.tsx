@@ -127,7 +127,7 @@ function CreateProjectForm({
         </FormRow>
 
         {/* Status */}
-        <FormRow label="Project Status" error={errors?.status?.message}>
+        <FormRow label="Status" error={errors?.status?.message}>
           <select
             id="status"
             {...register('status', {
@@ -142,10 +142,7 @@ function CreateProjectForm({
         </FormRow>
 
         {/* Description */}
-        <FormRow
-          label="Project Description"
-          error={errors?.description?.message}
-        >
+        <FormRow label="Description" error={errors?.description?.message}>
           <textarea
             id="description"
             rows={3}
@@ -157,7 +154,7 @@ function CreateProjectForm({
         </FormRow>
 
         {/* Image */}
-        <FormRow label="Project Photo">
+        <FormRow label="Photo">
           <div className="flex items-center gap-4">
             <div className="w-24 h-16 rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden shrink-0">
               {imageURL ? (
@@ -213,6 +210,19 @@ function CreateProjectForm({
               </Modal.Window>
             </Modal>
           </div>
+        </FormRow>
+
+        {/* Category */}
+        <FormRow label="Category" error={errors?.category?.message}>
+          <input
+            type="text"
+            id="category"
+            placeholder="Frontend, Backend, or Fullstack"
+            {...register('category', {
+              required: 'This field is requried',
+            })}
+            className="form__input"
+          />
         </FormRow>
 
         {/* Technologies */}
